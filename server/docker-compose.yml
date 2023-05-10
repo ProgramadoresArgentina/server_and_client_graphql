@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  db:
+    image: mongo:3.6.22-xenial
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - .database:/data/db
+volumes:
+  db:
+    driver: local
