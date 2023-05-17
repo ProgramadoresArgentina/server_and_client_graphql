@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:8000/",
+  uri: "http://localhost:8002/",
   cache: new InMemoryCache(),
 });
 
@@ -22,6 +22,32 @@ export const GET_ALL_USERS = gql`
       firstName
       gender
       lastName
+    }
+  }
+`;
+
+export const REGISTER_USER = gql`
+  mutation RegisterUser($input: UserRegisterInput) {
+    registerUser(input: $input) {
+      id
+      email
+      firstName
+      gender
+      lastName
+      password
+    }
+  }
+`;
+
+export const LOGIN_USER = gql`
+  mutation LoginUser($input: UserLoginInput) {
+    loginUser(input: $input) {
+      id
+      email
+      firstName
+      gender
+      lastName
+      password
     }
   }
 `;

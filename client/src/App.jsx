@@ -1,11 +1,34 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import "./App.css";
-import { GET_ALL_USERS } from "./main";
+import { GET_ALL_USERS, REGISTER_USER, LOGIN_USER } from "./main";
+import { useState } from "react";
 
 function App() {
-  const { data, loading, error } = useQuery(GET_ALL_USERS);
+  const [users, setUsers] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const { loading, error } = useQuery(GET_ALL_USERS, {
+    onCompleted: ({ getAllUsers }) => {
+      setUsers(getAllUsers);
+    },
+  });
+  const [
+    registerUser,
+    { data: registerData, loading: registerLoading, error: registerError },
+  ] = useMutation(REGISTER_USER);
 
-  if (error) {
+  const [
+    loginUser,
+    { data: loginData, loading: loginLoading, error: loginError },
+  ] = useMutation(LOGIN_USER, {
+    onCompleted: ({ loginUser }) => {
+      setUsers([...users, loginUser]);
+    },
+    onError: ({ message }) => {
+      console.log({ message });
+    },
+  });
+
+  if (error || registerError || loginError) {
     return (
       <div
         style={{
@@ -14,12 +37,13 @@ function App() {
           justifyContent: "center",
         }}
       >
-        <h1>{error.message}</h1>
+        <h1>{loginError && loginError.message}</h1>:
+        <h1>{error && error.message}</h1>
       </div>
     );
   }
 
-  if (loading) {
+  if (loading || registerLoading || loginLoading) {
     return (
       <div
         style={{
@@ -33,6 +57,13 @@ function App() {
     );
   }
 
+  console.log({ registerLoading });
+  console.log({ registerData });
+  console.log("======================================");
+  console.log({ loginLoading });
+  console.log({ loginError });
+  console.log({ loginData });
+
   return (
     <div
       style={{
@@ -42,8 +73,39 @@ function App() {
         justifyContent: "center",
       }}
     >
-      {data &&
-        data.getAllUsers.map(({ email, firstName, gender, id, lastName }) => (
+      <button
+        onClick={() =>
+          registerUser({
+            variables: {
+              input: {
+                email: "errrooror@ppp.com",
+                firstName: "pablo",
+                gender: "famle",
+                lastName: "heredia",
+                password: "123456789",
+              },
+            },
+          })
+        }
+      >
+        REGISTRO
+      </button>
+      <button
+        onClick={() =>
+          loginUser({
+            variables: {
+              input: {
+                email: "errrooror@ppp.com",
+                password: "123456789",
+              },
+            },
+          })
+        }
+      >
+        login
+      </button>
+      {currentUser &&
+        users.map(({ email, firstName, gender, id, lastName }) => (
           <div
             key={id}
             style={{

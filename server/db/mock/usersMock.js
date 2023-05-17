@@ -5,6 +5,7 @@ export const UsersMock = [
     lastName: "McClune",
     email: "emcclune@xrea.com",
     gender: "female",
+    password: "123456789",
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const UsersMock = [
     lastName: "Ingleston",
     email: "fingleston1@hibu.com",
     gender: "female",
+    password: "123456789",
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const UsersMock = [
     lastName: "Bergstram",
     email: "tbergstram2@pbs.org",
     gender: "female",
+    password: "123456789",
   },
   {
     id: 4,
@@ -26,5 +29,6 @@ export const UsersMock = [
     lastName: "Knighton",
     email: "hknighton3@booking.com",
     gender: "female",
+    password: "123456789",
   },
 ];

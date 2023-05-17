@@ -7,6 +7,7 @@ const models = gql`
     firstName: String!
     gender: String!
     lastName: String!
+    password: String!
   }
 `;
 

@@ -3,7 +3,9 @@ import { connect } from "mongoose";
 import { userSeeder } from "./seeders/userSeeder.js";
 
 export const dbConnect = async () => {
-  const DB_URL = process.env.MONGO_URI;
+  const env = process.env.NODE_ENV;
+  const DB_URL =
+    env === "development" ? process.env.MONGO_URI : process.env.MONGO_ATLAS;
 
   await connect(DB_URL)
     .then(() => {

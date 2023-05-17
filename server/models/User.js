@@ -14,6 +14,9 @@ const UserSchema = new Schema(
     gender: {
       type: String,
     },
+    password: {
+      type: String,
+    },
   },
   {
     timestamps: true,
