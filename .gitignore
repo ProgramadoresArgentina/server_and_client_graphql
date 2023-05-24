@@ -2,3 +2,5 @@ client/node_modules/
 client/pnpm-lock.yaml
 server/node_modules/
 server/pnpm-lock.yaml
+app/node_modules/
+app/package-lock.json
